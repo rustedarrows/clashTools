@@ -1,0 +1,256 @@
+<section data-ng-controller="CalculatorController" data-ng-init="updatePlayer()">
+    <h1 mean-token="'home-default'">Time Left Calculator</h1>
+    <h3>{{timeLeftMax()}}</h3>
+    <div class="row">
+        <div class="col-md-2">
+            Town Hall Level:
+        </div>
+        <div class="col-md-10">
+            <button data-ng-repeat="i in [] | range:10" type="button" data-ng-click="setTownHall(i)" data-ng-class="{ 'btn btn-default' : townHallLevel != i, 'btn btn-primary' : townHallLevel == i}" data-ng-click="player.goldMine[$parent.$index] = i">{{i+1}}</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Builder Huts:
+        </div>
+        <div class="col-md-10">
+            <button data-ng-repeat="i in [2,3,4,5]" data-ng-class="{ 'btn btn-default' : builders != i, 'btn btn-primary' : builders == i}" data-ng-click="setBuilders(i)">{{i}}</button>
+        </div>
+    </div>
+    <div data-ng-if="player.goldMine.length != 0" class="row">
+        <div class="col-md-12">Gold Mines:
+
+            <div data-ng-repeat="mine in player.goldMine track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.goldMine.level+1" data-ng-class="{ 'btn btn-default' : player.goldMine[$parent.$index] != i, 'btn btn-primary' : player.goldMine[$parent.$index] == i}" data-ng-click="player.goldMine[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.elixirPump.length != 0" class="row">
+        <div class="col-md-12">Elixir Pumps:
+
+            <div data-ng-repeat="pump in player.elixirPump track by $index">
+            {{$index + 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.elixirPump.level+1" data-ng-class="{ 'btn btn-default' : player.elixirPump[$parent.$index] != i, 'btn btn-primary' : player.elixirPump[$parent.$index] == i}" data-ng-click="player.elixirPump[$parent.$index] = i">{{i}}</button>
+            </div>
+
+        </div>
+    </div>
+    <div data-ng-if="player.darkElixirDrill.length != 0" class="row">
+        <div class="col-md-12">Dark Elixir Drill:
+
+            <div data-ng-repeat="mine in player.darkElixirDrill track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.darkElixirDrill.level+1" data-ng-class="{ 'btn btn-default' : player.darkElixirDrill[$parent.$index] != i, 'btn btn-primary' : player.darkElixirDrill[$parent.$index] == i}" data-ng-click="player.darkElixirDrill[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.goldStorage.length != 0"class="row">
+        <div class="col-md-12">Gold Storage:
+
+            <div data-ng-repeat="mine in player.goldStorage track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.goldStorage.level+1" data-ng-class="{ 'btn btn-default' : player.goldStorage[$parent.$index] != i, 'btn btn-primary' : player.goldStorage[$parent.$index] == i}" data-ng-click="player.goldStorage[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.elixirStorage.length != 0"class="row">
+        <div class="col-md-12">Elixir Storage:
+
+            <div data-ng-repeat="mine in player.elixirStorage track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.elixirStorage.level+1" data-ng-class="{ 'btn btn-default' : player.elixirStorage[$parent.$index] != i, 'btn btn-primary' : player.elixirStorage[$parent.$index] == i}" data-ng-click="player.elixirStorage[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.darkElixirStorage.length != 0"class="row">
+        <div class="col-md-12">Dark Elixir Storage:
+
+            <div data-ng-repeat="mine in player.darkElixirStorage track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.darkElixirStorage.level+1" data-ng-class="{ 'btn btn-default' : player.darkElixirStorage[$parent.$index] != i, 'btn btn-primary' : player.darkElixirStorage[$parent.$index] == i}" data-ng-click="player.darkElixirStorage[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.darkBarracks.length != 0" class="row">
+        <div class="col-md-12">Dark Barracks:
+
+            <div data-ng-repeat="mine in player.darkBarracks track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.darkBarracks.level+1" data-ng-class="{ 'btn btn-default' : player.darkBarracks[$parent.$index] != i, 'btn btn-primary' : player.darkBarracks[$parent.$index] == i}" data-ng-click="player.darkBarracks[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.barracks.length != 0" class="row">
+        <div class="col-md-12">Barracks:
+
+            <div data-ng-repeat="mine in player.barracks track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.barracks.level+1" data-ng-class="{ 'btn btn-default' : player.barracks[$parent.$index] != i, 'btn btn-primary' : player.barracks[$parent.$index] == i}" data-ng-click="player.barracks[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.armyCamps.length != 0" class="row">
+        <div class="col-md-12">Army Camps:
+
+            <div data-ng-repeat="mine in player.armyCamps track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.armyCamps.level+1" data-ng-class="{ 'btn btn-default' : player.armyCamps[$parent.$index] != i, 'btn btn-primary' : player.armyCamps[$parent.$index] == i}" data-ng-click="player.armyCamps[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.laboratory.length != 0" class="row">
+        <div class="col-md-12">Laboratory:
+
+            <div data-ng-repeat="mine in player.laboratory track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.laboratory.level+1" data-ng-class="{ 'btn btn-default' : player.laboratory[$parent.$index] != i, 'btn btn-primary' : player.laboratory[$parent.$index] == i}" data-ng-click="player.laboratory[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.spellFactory.length != 0" class="row">
+        <div class="col-md-12">Spell Factory:
+
+            <div data-ng-repeat="mine in player.spellFactory track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.spellFactory.level+1" data-ng-class="{ 'btn btn-default' : player.spellFactory[$parent.$index] != i, 'btn btn-primary' : player.spellFactory[$parent.$index] == i}" data-ng-click="player.spellFactory[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.clanCastle.length != 0"class="row">
+        <div class="col-md-12">Clan Castle:
+
+            <div data-ng-repeat="mine in player.clanCastle track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.clanCastle.level+1" data-ng-class="{ 'btn btn-default' : player.clanCastle[$parent.$index] != i, 'btn btn-primary' : player.clanCastle[$parent.$index] == i}" data-ng-click="player.clanCastle[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.cannon.length != 0"class="row">
+        <div class="col-md-12">Cannon:
+
+            <div data-ng-repeat="mine in player.cannon track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.cannon.level+1" data-ng-class="{ 'btn btn-default' : player.cannon[$parent.$index] != i, 'btn btn-primary' : player.cannon[$parent.$index] == i}" data-ng-click="player.cannon[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.archerTower.length != 0"class="row">
+        <div class="col-md-12">Archer Tower:
+
+            <div data-ng-repeat="mine in player.archerTower track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.archerTower.level+1" data-ng-class="{ 'btn btn-default' : player.archerTower[$parent.$index] != i, 'btn btn-primary' : player.archerTower[$parent.$index] == i}" data-ng-click="player.archerTower[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.walls.length != 0" class="row">
+        <div class="col-md-12">Walls:
+
+            <div data-ng-repeat="mine in player.walls track by $index">
+            {{$index+ 1}}:
+            <input data-ng-model="player.walls[$index]" />
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.mortar.length != 0"class="row">
+        <div class="col-md-12">Mortar:
+
+            <div data-ng-repeat="mine in player.mortar track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.mortar.level+1" data-ng-class="{ 'btn btn-default' : player.mortar[$parent.$index] != i, 'btn btn-primary' : player.mortar[$parent.$index] == i}" data-ng-click="player.mortar[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.bomb.length != 0"class="row">
+        <div class="col-md-12">Bomb:
+
+            <div data-ng-repeat="mine in player.bomb track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.bomb.level+1" data-ng-class="{ 'btn btn-default' : player.bomb[$parent.$index] != i, 'btn btn-primary' : player.bomb[$parent.$index] == i}" data-ng-click="player.bomb[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.airDefense.length != 0"class="row">
+        <div class="col-md-12">Air Defense:
+
+            <div data-ng-repeat="mine in player.airDefense track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.airDefense.level+1" data-ng-class="{ 'btn btn-default' : player.airDefense[$parent.$index] != i, 'btn btn-primary' : player.airDefense[$parent.$index] == i}" data-ng-click="player.airDefense[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.springTrap.length != 0"class="row">
+        <div class="col-md-12">Spring Trap:
+
+            <div data-ng-repeat="mine in player.springTrap track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.springTrap.level+1" data-ng-class="{ 'btn btn-default' : player.springTrap[$parent.$index] != i, 'btn btn-primary' : player.springTrap[$parent.$index] == i}" data-ng-click="player.springTrap[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.wizardTower.length != 0"class="row">
+        <div class="col-md-12">Wizard Tower:
+
+            <div data-ng-repeat="mine in player.wizardTower track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.wizardTower.level+1" data-ng-class="{ 'btn btn-default' : player.wizardTower[$parent.$index] != i, 'btn btn-primary' : player.wizardTower[$parent.$index] == i}" data-ng-click="player.wizardTower[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.giantBomb.length != 0"class="row">
+        <div class="col-md-12">Giant Bomb:
+
+            <div data-ng-repeat="mine in player.giantBomb track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.giantBomb.level+1" data-ng-class="{ 'btn btn-default' : player.giantBomb[$parent.$index] != i, 'btn btn-primary' : player.giantBomb[$parent.$index] == i}" data-ng-click="player.giantBomb[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.airBomb.length != 0"class="row">
+        <div class="col-md-12">Air Bomb:
+
+            <div data-ng-repeat="mine in player.airBomb track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.airBomb.level+1" data-ng-class="{ 'btn btn-default' : player.airBomb[$parent.$index] != i, 'btn btn-primary' : player.airBomb[$parent.$index] == i}" data-ng-click="player.airBomb[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.airMine.length != 0"class="row">
+        <div class="col-md-12">Air Mine:
+
+            <div data-ng-repeat="mine in player.airMine track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.airMine.level+1" data-ng-class="{ 'btn btn-default' : player.airMine[$parent.$index] != i, 'btn btn-primary' : player.airMine[$parent.$index] == i}" data-ng-click="player.airMine[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.tesla.length != 0"class="row">
+        <div class="col-md-12">Tesla:
+
+            <div data-ng-repeat="mine in player.tesla track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.tesla.level+1" data-ng-class="{ 'btn btn-default' : player.tesla[$parent.$index] != i, 'btn btn-primary' : player.tesla[$parent.$index] == i}" data-ng-click="player.tesla[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.xbow.length != 0"class="row">
+        <div class="col-md-12">X-Bow:
+
+            <div data-ng-repeat="mine in player.xbow track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.xbow.level+1" data-ng-class="{ 'btn btn-default' : player.xbow[$parent.$index] != i, 'btn btn-primary' : player.xbow[$parent.$index] == i}" data-ng-click="player.xbow[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="player.inferno.length != 0"class="row">
+        <div class="col-md-12">Inferno Tower:
+
+            <div data-ng-repeat="mine in player.inferno track by $index">
+            {{$index+ 1}}:
+            <button data-ng-repeat="i in [] | range:townHall.levels[townHallLevel].buildings.inferno.level+1" data-ng-class="{ 'btn btn-default' : player.inferno[$parent.$index] != i, 'btn btn-primary' : player.inferno[$parent.$index] == i}" data-ng-click="player.inferno[$parent.$index] = i">{{i}}</button>
+            </div>
+        </div>
+    </div>
+
+</section>
